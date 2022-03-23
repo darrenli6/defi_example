@@ -7,10 +7,14 @@ import {SafeMath} from './Libraries.sol';
 
 import { FlashLoanReceiverBase } from './FlashLoanReceiverBase.sol';
 
+ 
+ 
+
 contract  MyFlashLoan is FlashLoanReceiverBase {
 
      using SafeMath for uint256;
 
+   
      
     address private KOVAN_USDC = 0xe22da380ee6B445bb8273C81944ADEB6E8450422;
     address public KOVAN_AAVE = 0xB597cd8D3217ea6477232F9217fa70837ff667Af;
@@ -19,7 +23,7 @@ contract  MyFlashLoan is FlashLoanReceiverBase {
     address public AAVE_LENDING_POOL_IN_KOVAN= address(0x88757f2f99175387aB4C6a4b3067c77A695b0349);
 
      constructor(ILendingPoolAddressesProvider _address) FlashLoanReceiverBase(_address) public{
-
+            
      }
 
 
@@ -49,6 +53,12 @@ contract  MyFlashLoan is FlashLoanReceiverBase {
        }
 
        return true;
+
+     }
+
+     function depositToken(uint256 amount) external returns(bool) {
+        
+         return usdcToken.transferFrom(msg.sender, address(this), amount);
 
      }
 
