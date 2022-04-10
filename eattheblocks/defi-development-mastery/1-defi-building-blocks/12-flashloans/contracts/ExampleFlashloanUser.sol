@@ -6,6 +6,7 @@ import './FlashloanProvider.sol';
 import './IFlashloanUser.sol';
 
 contract ExampleFlashloanUser is IFlashloanUser {
+    event Log(string  message,uint  value);
     function startFlashloan(
         address flashloan,
         uint amount,
@@ -28,6 +29,7 @@ contract ExampleFlashloanUser is IFlashloanUser {
 
         // Reimburse borrowed tokens
         // msg.sender provider
+        emit Log("callback is called", amount);
         IERC20(token).transfer(msg.sender,amount);
     }
 }
