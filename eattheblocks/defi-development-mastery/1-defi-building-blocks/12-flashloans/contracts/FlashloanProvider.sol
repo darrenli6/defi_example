@@ -27,10 +27,11 @@ contract FlashloanProvider is ReentrancyGuard{
         uint originalBalance = token.balanceOf(address(this));
         require(address(_token) !=address(0),"token is not valid");
         require(originalBalance >= amount,"amount to high");
-        // 转给 回调地址 
+        // 转给 用户
         token.transfer(callback,amount);
-        // 回调地址转回来
+        //  做一些事情  转回银行
         IFlashloanUser(callback).flashloanCallback(amount,_token,data);
+       // 检查一下
         require(
             token.balanceOf(address(this))== originalBalance,
             "flashloan not reimbursed "

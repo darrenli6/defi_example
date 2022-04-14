@@ -12,7 +12,9 @@ contract ExampleFlashloanUser is IFlashloanUser {
         uint amount,
         address token
     ) external {
+
         FlashloanProvider(flashloan).executeFlashloan(
+            // 转到这里
           address(this),
           amount,
           token,
@@ -30,6 +32,7 @@ contract ExampleFlashloanUser is IFlashloanUser {
         // Reimburse borrowed tokens
         // msg.sender provider
         emit Log("callback is called", amount);
+        
         IERC20(token).transfer(msg.sender,amount);
     }
 }
